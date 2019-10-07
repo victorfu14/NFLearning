@@ -1,0 +1,17 @@
+# conventional way to import pandas
+import pandas as pd
+import os
+
+cd /home/hrishi/nflscrapR-data/play_by_play_data/regular_season/
+
+pwd
+
+data2018 = pd.read_csv("reg_pbp_2018.csv")
+
+#display the first five rows
+#data2018.head()
+data2018
+
+pd.options.display.max_columns = None
+#pd.options.display.max_rows = None
+display(data2018)
