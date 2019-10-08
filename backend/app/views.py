@@ -1,13 +1,33 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.views.generic import TemplateView
 
 from django.shortcuts import render
 
 # Create your views here.
-class HomePageView(TemplateView):
-    def get(self, request, **kwargs):
-        return render(request, 'index.html', context=None)
+def getSum(a, b):
+    sum = 0
+    for i in range(a,b):
+        sum += i
+    return sum
 
 def view_home(request):
-    return render(request, 'index.html', {})
+    output = getSum(0, 10)
+    games = [
+        ["Patriots", "Redskins"],
+        ["Porn", "Hub"],
+        ["Siraj", "chokeme"],
+        ["Siraj", "chokeme"],
+        ["Siraj", "chokeme"],
+        ["Siraj", "chokeme"],
+        ["Siraj", "chokeme"],
+        ["Siraj", "chokeme"],
+        ["Siraj", "chokeme"],
+        ["Siraj", "chokeme"],
+        ["Siraj", "chokeme"],
+        ["Siraj", "chokeme"],
+        ["Siraj", "chokeme"]
+    ]
+
+    return render(request, 'index.html', {'output': output,
+                                          'numberOfGames': games.__len__(),
+                                          'games': games})
