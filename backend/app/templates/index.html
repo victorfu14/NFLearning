@@ -1,7 +1,41 @@
 <!DOCTYPE HTML>
+{% load static %}
 <html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+
 <body>
-<h1> Hello! </h1>
+        <header>
+            <h1>NFLearning</h1>
+        </header>
+        <div class="container" id="results-wrapper"></div>
+        <footer>
+            <p>Rick's Group 2019</p>
+        </footer>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+  crossorigin="anonymous"></script>
+<script>
+    var arr = {{ games|safe }};
+    function addResult(winner, loser) {
+        resultTemp = '<div class="result">\n' +
+            '            <h2>' + winner  + ' beats ' + loser + '</h2>\n' +
+            '        </div>';
+        $(resultTemp).appendTo("#results-wrapper");
+    }
+
+    var winner;
+    var loser;
+    for (var i = 0; i < {{numberOfGames}}; i = i + 1) {
+        winner = arr[i][0];
+        loser = arr[i][1];
+        addResult(winner, loser);
+    }
+</script>
 
 </body>
 
