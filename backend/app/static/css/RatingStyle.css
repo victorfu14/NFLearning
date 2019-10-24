@@ -1,0 +1,47 @@
+/* All the rating stars*/
+.star{
+  color: goldenrod;
+  font-size: 2.0rem;
+  padding: 0 1rem; /* space out the stars */
+  }
+.star::before{
+  content: '\2606';    /* star outline */
+  cursor: pointer;
+}
+.star.rated::before{
+  /* the style for a selected star */
+  content: '\1F3C8';  /* a football */
+}
+.stars{
+  counter-reset: rateme 0;   
+  font-size: 2.0rem;
+  font-weight: 900;
+}
+.star.rated{
+  counter-increment: rateme 1;
+}
+.stars::after{
+  content: counter(rateme) '/5';
+}
+.stars .star {
+  text-align: center;
+}
+
+html,
+body {
+  height: 100%;
+} 
+
+.cover-container {
+  max-width: 50em;
+}
+
+.title{
+  text-align: center;
+}
+
+.label{
+  text-align: right;
+  font-size: 20px;
+  font-weight: 400;
+}
