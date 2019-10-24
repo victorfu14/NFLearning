@@ -53,3 +53,5 @@ def view_home(request):
     return render(request, 'index.html', {'output': output,
                                           'numberOfGames': games.__len__(),
                                           'games': games})
+def feedback(request):
+    return render(request, 'rating.html')
