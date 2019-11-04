@@ -8,7 +8,7 @@ html {
     overflow-y: scroll;
 }
 
-body {
+/* body {
     padding-bottom: 20vh;
     position: relative;
     min-height: 90vh;
@@ -40,25 +40,31 @@ footer {
 footer p {
     color: white;
     font-size: 20px;
-}
+} */
 
-.container {
+.cover-container {
     max-width: 960px;
     margin: 0 auto;
     text-align: center;
 }
 
-.result {
+.card {
     width: 100%;
-    border-radius: 12px;
     position: relative;
+    /* border-radius: 12px;
     padding: 20px 0;
-    margin: 20px 0 0px 0;
+    margin: 20px 0 0px 0; */
     z-index: 1;
     background-color: #FFFFFF;
         -webkit-box-shadow: 0px 2px 50px -20px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 2px 50px -20px rgba(0,0,0,0.75);
     box-shadow: 0px 2px 50px -20px rgba(0,0,0,0.75);
+}
+
+.text {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 1.5em;
 }
 
 @media only screen and (max-width: 960px) {
@@ -72,6 +78,7 @@ footer p {
         font-size: 24px;
     }
 }
+<<<<<<< Updated upstream
 
 /*.menu-area li a {*/
   /*text-decoration: none;*/
@@ -151,3 +158,5 @@ nav:after {
   top: 100%;
   right: 0;
 }
+=======
+>>>>>>> Stashed changes

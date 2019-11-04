@@ -20,6 +20,8 @@
     });
   </script> -->
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  {% block content %}
+  {% if user.is_authenticated %}
     <header class="title">
       <h1> This is a rating page. </h1>
     </header>
@@ -37,6 +39,12 @@
       <textarea class="form-control" rows="4" placeholder="Write down your brilliant ideas here!"></textarea>
     </div>
       <button type="submit" class="submit btn btn-primary btn-sm">Submit Your Feedback</button>
+  {% else %}
+    <br>
+  	<p>You need to log in to view content</p>
+  	<a href ="{% url 'login' %}">login</a>
+  {% endif %}
+  {% endblock %}
   </div>
 </body>
 </html>
