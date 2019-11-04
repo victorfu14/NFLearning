@@ -3,16 +3,21 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 import random
+import requests
+
+import bs4 as bs
+
+url = ("https://www.si.com/nfl/schedule")
+r = requests.get(url)
+
+soup = bs.BeautifulSoup(r.content, "html.parser")
+print(soup)
+
+s = soup.find_all("div", )
 
 # Create your views here.
-def getSum(a, b):
-    sum = 0
-    for i in range(a,b):
-        sum += i
-    return sum
 
 def view_home(request):
-    output = getSum(0, 10)
     teams = [
         ['ARI', 'Arizona', 'Cardinals', 'Arizona Cardinals'],
         ['ATL', 'Atlanta', 'Falcons', 'Atlanta Falcons'],
@@ -50,8 +55,8 @@ def view_home(request):
     ]
 
     games = [ [random.choice(teams)[2], random.choice(teams)[2]] for i in range(10)]
-    return render(request, 'index.html', {'output': output,
-                                          'numberOfGames': games.__len__(),
+    return render(request, 'index.html', {'numberOfGames': games.__len__(),
                                           'games': games})
+
 def feedback(request):
     return render(request, 'rating.html')

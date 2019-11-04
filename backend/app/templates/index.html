@@ -3,13 +3,29 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>NFLearning Home</title>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 
 <body>
         <header>
-            <h1>NFLearning</h1>
+            <div class="custom-padding">
+              <nav>
+                <div class="logo">NFLearning</div>
+
+                <ul class="menu-area">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/about/">About</a></li>
+                  <li><a href="/predictions/">Predictions</a></li>
+                  <li><a href="#">Contact</a></li>
+                    {% if user.is_authenticated %}
+                  <li><a href="#">{{ user.username }}</a></li>
+                    {% else %}
+                  <li><a href="/registration/login.html">Login</a></li>
+                    {% endif %}
+                </ul>
+              </nav>
+            </div>
         </header>
         <div class="container" id="results-wrapper"></div>
         <footer>
@@ -27,7 +43,6 @@
             '        </div>';
         $(resultTemp).appendTo("#results-wrapper");
     }
-
     var winner;
     var loser;
     for (var i = 0; i < {{numberOfGames}}; i = i + 1) {
@@ -35,8 +50,8 @@
         loser = arr[i][1];
         addResult(winner, loser);
     }
-</script>
 
+</script>
 </body>
 
 </html>
