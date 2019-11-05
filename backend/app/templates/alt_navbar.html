@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+  <header>
+      <div class="custom-padding">
+        <nav>
+          <div class="logo">NFLearning</div>
+
+          <ul class="menu-area">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/predictions/">Predictions</a></li>
+            <li><a href="#">Contact</a></li>
+              {% if user.is_authenticated %}
+            <li><a href="#">{{ user.username }}</a></li>
+              {% else %}
+            <li><a href="/registration/login.html">Login</a></li>
+              {% endif %}
+          </ul>
+        </nav>
+      </div>
+  </header>
+</body>

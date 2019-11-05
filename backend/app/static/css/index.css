@@ -12,20 +12,9 @@ html {
     padding-bottom: 20vh;
     position: relative;
     min-height: 90vh;
-}
+} */
 
-header {
-    background-color: navy;
-    margin: 0 auto;
-    text-align: center;
-    padding: 5vh 0;
-}
-
-header h1 {
-    color: #FFFFFF;
-}
-
-footer {
+/* footer {
     background-color: navy;
     margin: 0 auto;
     padding: 3.5vh 0;
@@ -54,7 +43,7 @@ footer p {
     /* border-radius: 12px;
     padding: 20px 0;
     margin: 20px 0 0px 0; */
-    z-index: 1;
+    /* z-index: 1; */
     background-color: #FFFFFF;
         -webkit-box-shadow: 0px 2px 50px -20px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 2px 50px -20px rgba(0,0,0,0.75);
@@ -78,7 +67,6 @@ footer p {
         font-size: 24px;
     }
 }
-<<<<<<< Updated upstream
 
 /*.menu-area li a {*/
   /*text-decoration: none;*/
@@ -94,7 +82,7 @@ footer p {
 
 nav {
   position: relative;
-  width: calc(100% - 60px);
+  width: calc(100%);
   margin: 0 auto;
   padding: 10px 0;
   background: navy;
@@ -158,5 +146,3 @@ nav:after {
   top: 100%;
   right: 0;
 }
-=======
->>>>>>> Stashed changes
