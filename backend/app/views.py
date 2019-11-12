@@ -57,3 +57,6 @@ def view_home(request):
     games = [ [random.choice(teams)[2], random.choice(teams)[2]] for i in range(10)]
     return render(request, 'index.html', {'numberOfGames': games.__len__(),
                                           'games': games})
+
+def feedback(request):
+    return render(request, 'rating.html')
