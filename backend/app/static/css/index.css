@@ -1,5 +1,5 @@
 body, html {
-    font-family: sans-serif;
+    font-family: 'Raleway', sans-serif;
     padding: 0;
     margin: 0 auto;
 }
@@ -8,46 +8,23 @@ html {
     overflow-y: scroll;
 }
 
-/* body {
-    padding-bottom: 20vh;
-    position: relative;
-    min-height: 90vh;
-} */
-
-/* footer {
-    background-color: navy;
-    margin: 0 auto;
-    padding: 3.5vh 0;
-    text-align: center;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    left: 50%;
-    margin-left: -50%;
+#content {
+    height: 100%;
 }
-
-footer p {
-    color: white;
-    font-size: 20px;
-} */
 
 .cover-container {
     max-width: 960px;
-    margin: 0 auto;
     text-align: center;
+    overflow-x: auto;
 }
 
 .card {
-    width: 100%;
     position: relative;
-    /* border-radius: 12px;
-    padding: 20px 0;
-    margin: 20px 0 0px 0; */
     /* z-index: 1; */
     background-color: #FFFFFF;
-        -webkit-box-shadow: 0px 2px 50px -20px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 2px 50px -20px rgba(0,0,0,0.75);
-    box-shadow: 0px 2px 50px -20px rgba(0,0,0,0.75);
+        -webkit-box-shadow: 0px 2px 20px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 20px -10px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 20px -10px rgba(0,0,0,0.75);
 }
 
 .text {
@@ -66,83 +43,4 @@ footer p {
     header h1 {
         font-size: 24px;
     }
-}
-
-/*.menu-area li a {*/
-  /*text-decoration: none;*/
-/*}*/
-
-/*.menu-area li {*/
-  /*list-style-type: none;*/
-/*}*/
-
-.custom-padding{
-  padding-top: 25px;
-}
-
-nav {
-  position: relative;
-  width: calc(100%);
-  margin: 0 auto;
-  padding: 10px 0;
-  background: navy;
-  z-index: 1;
-  text-align: right;
-  padding-right: 2%;
-}
-
-.logo {
-  width: 15%;
-  float: left;
-  color: #fff;
-  font-size: 30px;
-  text-align: left;
-  padding-left: 2%;
-}
-
-.menu-area li {
-  display: inline-block;
-}
-
-.menu-area a {
-  color: #fff;
-  font-weight: 300;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  display: block;
-  padding: 0 25px;
-  font-size: 14px;
-  line-height: 30px;
-  position: relative;
-  z-index: 1;
-}
-.menu-area a:hover {
-  background: tomato;
-  color: #fff;
-}
-
-.menu-area a:hover:after {
-  transform: translateY(-50%) rotate(-35deg);
-}
-
-nav:before {
-  position: absolute;
-  content: '';
-  border-top: 10px solid #333;
-  border-right: 10px solid #333;
-  border-left: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  top: 100%;
-  left: 0;
-}
-
-nav:after {
-  position: absolute;
-  content: '';
-  border-top: 10px solid #333;
-  border-left: 10px solid #333;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  top: 100%;
-  right: 0;
 }
