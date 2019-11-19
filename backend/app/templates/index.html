@@ -14,15 +14,17 @@
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
-  <main id="content" class="bd-masthead" role="main">
-    <h1 class="cover-heading">NFLearing - Powered by ML</h1>
-    <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, facilis.</p>
-    <p class="lead">
-      <a href="#result" class="btn btn-lg btn-secondary">See Our Work</a>
-    </p>
-  </main>
-  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column" id="result">
-    <div class="row">
+  <div class="cover-container p-3 mx-auto flex-row">
+    <div class="row" id="cover">
+      <div id="front" class="col" role="main">
+        <h1 class="cover-heading">NFLearing - Powered by ML</h1>
+        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, facilis.</p>
+        <p class="lead">
+          <a href="#result" class="btn btn-lg btn-secondary">See Our Work</a>
+        </p>
+      </div>
+    </div>
+    <div class="row" id="result">
       <div class="col-md-6">
         <script src="{ static 'js/client.js' %}"></script>
       </div>

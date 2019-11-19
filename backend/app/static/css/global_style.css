@@ -1,0 +1,8 @@
+/* fonts */
+
+body, html {
+    font-family: 'Raleway', sans-serif;
+    padding: 0;
+    margin: 0 auto;
+    overflow-x: auto;
+}

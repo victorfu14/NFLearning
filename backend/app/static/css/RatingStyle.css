@@ -27,11 +27,6 @@
   text-align: center;
 }
 
-html,
-body {
-  height: 100%;
-} 
-
 .cover-container {
   max-width: 50em;
 }
