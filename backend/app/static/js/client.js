@@ -6,7 +6,7 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <h1>Victory Tutorial</h1>
+        <h1>NFLearning</h1>
       </div>
     );
   }
