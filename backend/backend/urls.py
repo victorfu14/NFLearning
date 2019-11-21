@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^accounts/', include('accounts.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^', TemplateView.as_view(template_name='home.html'), name='home'),
-    #url(r'^accounts/signup/', TemplateView.as_view(template_name='signup.html'), name='signup'),
+    url(r'^accounts/signup/', TemplateView.as_view(template_name='signup.html'), name='signup'),
 ]

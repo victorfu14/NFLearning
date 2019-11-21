@@ -65,6 +65,7 @@ html {
     opacity: 0.1;
     background-image: url("../image/NFL_logo.svg");
     background-repeat: no-repeat;
+    background-position-x: center;
     background-position-y: center;
     top: 0;
     left: 0;

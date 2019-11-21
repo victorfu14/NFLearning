@@ -3,80 +3,99 @@
 {% include 'navbar.html' %}
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-    crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700&display=swap" rel="stylesheet">
-  <title>Home</title>
-  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700&display=swap" rel="stylesheet">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
-  <div class="cover-container p-3 mx-auto flex-row">
-    <div class="row" id="cover">
-      <div id="front" class="col" role="main">
-        <h1 class="cover-heading">NFLearing - Powered by ML</h1>
-        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, facilis.</p>
-        <p class="lead">
-          <a href="#result" class="btn btn-lg btn-secondary">See Our Work</a>
-        </p>
-      </div>
-    </div>
-    <div class="row" id="result">
-      <div class="col-md-6">
-        <script src="{ static 'js/client.js' %}"></script>
-      </div>
-      <div class="col-md-6" id="Disp">
-        <div class="accordion" id="accordionDisp">
-          <script
-              src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-              integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-              crossorigin="anonymous">
-          </script>
-          <script>
-              var arr = {{ games|safe }};
-              function addResult(winner, loser, i) {
-                  resultTemp =
-                      '<div class="card">\n' +
-                      '   <div class="card-header" id="heading'+i+'">' +
-                      '       <h2 class="mb-0">' +
-                      '           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse'+i+'" ' +
-                      '               aria-expanded="true" aria-controls="collapse'+i+'">' +
-                      '               <h2 class = "text">' + winner + ' beats ' + loser + '</h2>\n' +
-                      '           </button>' +
-                      '       </h2>' +
-                      '   </div>' +
-                      '   <div id="collapse'+i+'" class="collapse" aria-labelledby="heading'+i+'" data-parent="#accordionDisp">' +
-                      '       <div class="card-body">' +
-                      '           More details...' +
-                      '       </div>' +
-                      '   </div>' +
-                      '</div><br>';
-                  $(resultTemp).appendTo( "#Disp" );
-              }
-
-              var winner;
-              var loser;
-              for (var i = 0; i < {{numberOfGames}}; i = i + 1) {
-                  winner = arr[i][0];
-                  loser = arr[i][1];
-                  addResult(winner, loser, i);
-              }
-          </script>
+    <div class="cover-container p-3 mx-auto flex-row">
+        <div class="row" id="cover">
+            <div id="front" class="col" role="main">
+                <h1 class="cover-heading">NFLearing - Powered by ML</h1>
+                <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, facilis.</p>
+                <p class="lead">
+                    <a href="#result" class="btn btn-lg btn-secondary">See Our Work</a>
+                </p>
+            </div>
         </div>
-      </div>
+        <div class="row" id="result">
+            <div class="col-md-6">
+                <script src="{% static 'js/client.js' %}"></script>
+            </div>
+            <div class="col-md-6" id="Disp">
+                <div class="accordion" id="accordionDisp">
+                <script
+                    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+                    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+                    crossorigin="anonymous"></script>
+                <script>
+                    var arr = {{ games|safe }};
+                    function addResult(winner, loser, i) {
+                        resultTemp =
+                            '<div class="card">' +
+                            '   <div class="card-header" id="heading'+i+'">' +
+                            '       <h2 class="mb-0">' +
+                            '           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse'+i+'" ' +
+                            '               aria-expanded="true" aria-controls="collapse'+i+'">' +
+                            '               <h2 class = "text">' + winner + ' beats ' + loser + '</h2>\n' +
+                            '           </button>' +
+                            '       </h2>' +
+                            '   </div>' +
+                            '   <div id="collapse'+i+'" class="collapse" aria-labelledby="heading'+i+'" data-parent="#accordionDisp">' +
+                            '       <div class="card-body">' +
+                            '           More details...' +
+                            '       </div>' +
+                            '   </div>' +
+                            '</div><br>';
+                        $(resultTemp).appendTo( "#Disp" );
+                    }
+
+                    function addstyle(winner, loser, i) {
+                        win = "\"../static/image/"+winner+".svg\"";
+                        lose = "\"../static/image/"+loser+".svg\"";
+                        console.log(win, lose);
+                        resultTemp =
+                            '<style type="text/css">' +
+                            '   #heading'+i+'::after {' +
+                            '       display: block; opacity: 0.1;' +
+                            '       background-image: url('+win+'), url('+lose+');' +
+                            '       background-size: 30%;' +
+                            '       background-position-y: center;' +
+                            '       background-position-x: left, right;' +
+                            '       top: 0; left: 0; bottom:0; right:0;' +
+                            '       position: absolute; z-index: -1;' +
+                            '   }' +
+                            '</style>'
+                        $(resultTemp).appendTo( "#Disp" );
+                    }
+
+                    var winner;
+                    var loser;
+                    for (var i = 0; i < {{numberOfGames}}; i = i + 1) {
+                        winner = arr[i][0];
+                        loser = arr[i][1];
+                        addResult(winner, loser, i);
+                        addstyle(winner, loser, i);
+                    }
+                </script>
+            </div>
+        </div>
+        </div>
     </div>
-  </div>
-  <footer>
-    <p>Rick's Group 2019</p>
-  </footer>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+    <footer>
+        <p>Rick's Group 2019</p>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

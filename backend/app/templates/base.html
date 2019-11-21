@@ -1,13 +1,15 @@
 <!DOCTYPE html>
+{% load static %}
 {% include 'navbar.html' %}
 <html>
 	<head>
 		<meta charset="UTF-8">
-	  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="{% static 'css/global_style.css' %}">
 		<title>{% block title %}Welcome To NFLearning!{% endblock %}</title>
 	</head>
 	<body>
-		<main>
+		<main class="cover-container p-3">
 			{% block content %}Our CS196 Project{% endblock%}
 		</main>
 	</body>

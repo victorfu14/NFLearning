@@ -1,8 +1,14 @@
 /* fonts */
-
 body, html {
     font-family: 'Raleway', sans-serif;
     padding: 0;
     margin: 0 auto;
+    overflow-x: auto;
+}
+
+.cover-container {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 90%;
     overflow-x: auto;
 }
