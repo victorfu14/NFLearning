@@ -60,3 +60,6 @@ def view_home(request):
 
 def feedback(request):
     return render(request, 'rating.html')
+
+def current_games(request):
+    return render(request, 'current_games.html')

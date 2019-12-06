@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 {% load static %}
+{% load render_bundle from webpack_loader %}
 {% include 'navbar.html' %}
 <html>
 <head>
@@ -26,7 +27,8 @@
         </div>
         <div class="row" id="result">
             <div class="col-md-6">
-                <script src="{% static 'js/client.js' %}"></script>
+                <div id="disp"></div>
+                {% render_bundle 'main' %}
             </div>
             <div class="col-md-6" id="Disp">
                 <div class="accordion" id="accordionDisp">
