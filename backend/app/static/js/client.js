@@ -48,7 +48,7 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, mountNode);
+// ReactDOM.render(<App/>, mountNode);
 
-const app = document.getElementById('app');
-ReactDOM.render(<Main />, app);
+const app = document.getElementById('chartdisp');
+ReactDOM.render(<App />, app);
