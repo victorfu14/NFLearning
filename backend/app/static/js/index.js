@@ -52,3 +52,4 @@ class App extends React.Component {
 
 const app = document.getElementById('chartdisp');
 ReactDOM.render(<App />, app);
+

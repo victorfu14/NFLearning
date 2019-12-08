@@ -15,6 +15,12 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
+    <script>
+        var arr = {{ games|safe }};
+        var res = {{ prob|safe }};
+        console.log(arr);
+        console.log(res);
+    </script>
     <div class="cover-container p-3 mx-auto flex-row">
         <div class="row" id="cover">
             <div id="front" class="col" role="main">
@@ -80,8 +86,8 @@
                     var winner;
                     var loser;
                     for (var i = 0; i < {{numberOfGames}}; i = i + 1) {
-                        winner = arr[i][0];
-                        loser = arr[i][1];
+                        winner = arr[i][0][2];
+                        loser = arr[i][1][2];
                         addResult(winner, loser, i);
                         addstyle(winner, loser, i);
                     }
