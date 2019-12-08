@@ -20,4 +20,4 @@ for i in range(output.shape[0]):
         final.append(0)
     if(output[i,0]<output[i,1]):
         final.append(1)
-#final_output is the final result with numpy array type[x,1],for each row,0 means lost, and 1 means win.
+#final_output is the final result with list type[x,1],for each row,0 means lost, and 1 means win.
