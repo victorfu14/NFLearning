@@ -17,7 +17,7 @@ final_output=[]
 output=outputs.numpy()
 for i in range(output.shape[0]):
     if(output[i,0]>output[i,1]):
-        final.append(0)
+        final_output.append(0)
     if(output[i,0]<output[i,1]):
-        final.append(1)
+        final_output.append(1)
 #final_output is the final result with list type[x,1],for each final_output[x],0 means lost, and 1 means win.
