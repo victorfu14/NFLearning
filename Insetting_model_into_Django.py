@@ -11,4 +11,11 @@ imported=tf.saved_model.load("/Users/sunao2000/Desktop") #this is code of how th
 outputs = imported(tf.convert_to_tensor(testinp, dtype=tf.float32))#This is the final output, the variable "testinp" is any numpy array with shape[x,11]
 output=outputs.numpy()
 #The output with size[x,2] numpyarray type, such as [0.4323,0.547]. 
-#If  left > right column, then the web should print "lost", and left < right column is "win". In the case of "[0.4323,0.547]", the final output is lost.
+final_output=[]
+output=outputs.numpy()
+for i in range(output.shape[0]):
+    if(output[i,0]>output[i,1]):
+        final.append(0)
+    if(output[i,0]<output[i,1]):
+        final.append(1)
+#final_output is the final result with numpy array type[x,1],for each row,0 means lost, and 1 means win.
