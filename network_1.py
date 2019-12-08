@@ -24,15 +24,8 @@ testinp=pdt2.drop(["Win"], axis=1).values
 #x1=np.zeros((60000,28,28))
 #y1=np.zeros((60000,1))
 model = tf.keras.models.Sequential([
-    tf.keras.layers.Dense(1200, activation='relu'),
-    #tf.keras.layers.Dropout(0.9),
-    tf.keras.layers.Dense(780, activation='relu'),
-    #tf.keras.layers.Dropout(0.9),
-    tf.keras.layers.Dense(520, activation='relu'),
-    #tf.keras.layers.Dropout(0.9),
-    tf.keras.layers.Dense(259, activation='relu'),
-    tf.keras.layers.Dense(120, activation='relu'),
-    tf.keras.layers.Dense(60, activation='relu'),
+    tf.keras.layers.Dense(9, activation='relu'),
+    tf.keras.layers.Dense(7, activation='relu'),
     tf.keras.layers.Dense(2, activation='softmax')
 ])
 
@@ -42,3 +35,4 @@ model.compile(optimizer='adam',
 
 model.fit(finaltraining, finallabel, epochs=7)
 model.evaluate(testinp, teslabel)
+
