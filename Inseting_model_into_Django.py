@@ -8,7 +8,7 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 
-inputdata=xxxxxxx #the numpyarray with size[x,11]
+inputdata=xxxxxxx # numpyarray with size[x,11]
 imported=tf.saved_model.load("/Users/sunao2000/Desktop") #this is code of how the model is imported, please change this directory into correct one.
 outputs = imported(tf.convert_to_tensor(inputdata, dtype=tf.float32))#This is the final output, the variable "inputdata" is any numpy array with shape[x,11]
 output=outputs.numpy()
