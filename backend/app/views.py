@@ -12,6 +12,8 @@ import numpy as np
 import pandas as pd
 import os
 
+import nflgame
+
 # url = ("https://www.si.com/nfl/schedule")
 # r = requests.get(url)
 
@@ -25,40 +27,40 @@ import os
 def view_home(request):
     
     # load teams
-    teams = [
-        ['ARI', 'Arizona', 'Cardinals', 'Arizona Cardinals'],
-        ['ATL', 'Atlanta', 'Falcons', 'Atlanta Falcons'],
-        ['BAL', 'Baltimore', 'Ravens', 'Baltimore Ravens'],
-        ['BUF', 'Buffalo', 'Bills', 'Buffalo Bills'],
-        ['CAR', 'Carolina', 'Panthers', 'Carolina Panthers'],
-        ['CHI', 'Chicago', 'Bears', 'Chicago Bears'],
-        ['CIN', 'Cincinnati', 'Bengals', 'Cincinnati Bengals'],
-        ['CLE', 'Cleveland', 'Browns', 'Cleveland Browns'],
-        ['DAL', 'Dallas', 'Cowboys', 'Dallas Cowboys'],
-        ['DEN', 'Denver', 'Broncos', 'Denver Broncos'],
-        ['DET', 'Detroit', 'Lions', 'Detroit Lions'],
-        ['GB', 'Green Bay', 'Packers', 'Green Bay Packers', 'G.B.', 'GNB'],
-        ['HOU', 'Houston', 'Texans', 'Houston Texans'],
-        ['IND', 'Indianapolis', 'Colts', 'Indianapolis Colts'],
-        ['JAX', 'Jacksonville', 'Jaguars', 'Jacksonville Jaguars', 'JAX'],
-        ['KC', 'Kansas City', 'Chiefs', 'Kansas City Chiefs', 'K.C.', 'KAN'],
-        ['LA', 'Los Angeles', 'Rams', 'Los Angeles Rams', 'L.A.'],
-        ['LAC', 'Los Angeles', 'Chargers', 'Los Angeles Chargers'],
-        ['MIA', 'Miami', 'Dolphins', 'Miami Dolphins'],
-        ['MIN', 'Minnesota', 'Vikings', 'Minnesota Vikings'],
-        ['NE', 'New England', 'Patriots', 'New England Patriots', 'N.E.', 'NWE'],
-        ['NO', 'New Orleans', 'Saints', 'New Orleans Saints', 'N.O.', 'NOR'],
-        ['NYG', 'Giants', 'New York Giants', 'N.Y.G.'],
-        ['NYJ', 'Jets', 'New York Jets', 'N.Y.J.'],
-        ['OAK', 'Oakland', 'Raiders', 'Oakland Raiders'],
-        ['PHI', 'Philadelphia', 'Eagles', 'Philadelphia Eagles'],
-        ['PIT', 'Pittsburgh', 'Steelers', 'Pittsburgh Steelers'],
-        ['SEA', 'Seattle', 'Seahawks', 'Seattle Seahawks'],
-        ['SF', 'San Francisco', '49ers', 'San Francisco 49ers', 'S.F.', 'SFO'],
-        ['TB', 'Tampa Bay', 'Buccaneers', 'Tampa Bay Buccaneers', 'T.B.', 'TAM'],
-        ['TEN', 'Tennessee', 'Titans', 'Tennessee Titans'],
-        ['WAS', 'Washington', 'Redskins', 'Washington Redskins', 'WSH'],
-    ]
+    teams = {
+            'ARI':['ARI', 'Arizona', 'Cardinals', 'Arizona Cardinals'],
+            'ATL':['ATL', 'Atlanta', 'Falcons', 'Atlanta Falcons'],
+            'BAL':['BAL', 'Baltimore', 'Ravens', 'Baltimore Ravens'],
+            'BUF':['BUF', 'Buffalo', 'Bills', 'Buffalo Bills'],
+            'CAR':['CAR', 'Carolina', 'Panthers', 'Carolina Panthers'],
+            'CHI':['CHI', 'Chicago', 'Bears', 'Chicago Bears'],
+            'CIN':['CIN', 'Cincinnati', 'Bengals', 'Cincinnati Bengals'],
+            'CLE':['CLE', 'Cleveland', 'Browns', 'Cleveland Browns'],
+            'DAL':['DAL', 'Dallas', 'Cowboys', 'Dallas Cowboys'],
+            'DEN':['DEN', 'Denver', 'Broncos', 'Denver Broncos'],
+            'DET':['DET', 'Detroit', 'Lions', 'Detroit Lions'],
+            'GB':['GB', 'Green Bay', 'Packers', 'Green Bay Packers', 'G.B.', 'GNB'],
+            'HOU':['HOU', 'Houston', 'Texans', 'Houston Texans'],
+            'IND':['IND', 'Indianapolis', 'Colts', 'Indianapolis Colts'],
+            'JAX':['JAX', 'Jacksonville', 'Jaguars', 'Jacksonville Jaguars', 'JAX'],
+            'KC':['KC', 'Kansas City', 'Chiefs', 'Kansas City Chiefs', 'K.C.', 'KAN'],
+            'LA':['LA', 'Los Angeles', 'Rams', 'Los Angeles Rams', 'L.A.'],
+            'LAC':['LAC', 'Los Angeles', 'Chargers', 'Los Angeles Chargers'],
+            'MIA':['MIA', 'Miami', 'Dolphins', 'Miami Dolphins'],
+            'MIN':['MIN', 'Minnesota', 'Vikings', 'Minnesota Vikings'],
+            'NE':['NE', 'New England', 'Patriots', 'New England Patriots', 'N.E.', 'NWE'],
+            'NO':['NO', 'New Orleans', 'Saints', 'New Orleans Saints', 'N.O.', 'NOR'],
+            'NYG':['NYG', 'Giants', 'New York Giants', 'N.Y.G.'],
+            'NYJ':['NYJ', 'Jets', 'New York Jets', 'N.Y.J.'],
+            'OAK':['OAK', 'Oakland', 'Raiders', 'Oakland Raiders'],
+            'PHI':['PHI', 'Philadelphia', 'Eagles', 'Philadelphia Eagles'],
+            'PIT':['PIT', 'Pittsburgh', 'Steelers', 'Pittsburgh Steelers'],
+            'SEA':['SEA', 'Seattle', 'Seahawks', 'Seattle Seahawks'],
+            'SF':['SF', 'San Francisco', '49ers', 'San Francisco 49ers', 'S.F.', 'SFO'],
+            'TB':['TB', 'Tampa Bay', 'Buccaneers', 'Tampa Bay Buccaneers', 'T.B.', 'TAM'],
+            'TEN':['TEN', 'Tennessee', 'Titans', 'Tennessee Titans'],
+            'WAS':['WAS', 'Washington', 'Redskins', 'Washington Redskins', 'WSH'],
+    }
 
     # get the home dir
     module_dir = os.path.dirname(__file__)
@@ -70,19 +72,27 @@ def view_home(request):
         home_stat = pd.read_csv(data, index_col=0)
     with open(away_stat_path) as data:
         away_stat = pd.read_csv(data, index_col=0)
-    
-    games = [random.sample(teams, 2) for i in range(10)]
+
+    current_year_and_week = nflgame.live.current_year_and_week()
+
+    games = [[x.home, x.away] for x in nflgame.games(year=current_year_and_week[0], week=current_year_and_week[1])]
+    #games = [random.sample(teams, 2) for i in range(10)]
+    #print(games)
+    #games = games[:10]
+
+    frontend_games = [[teams.get(x[0]), teams.get(x[1])] for x in games]
+    print(frontend_games)
 
     # load tf models
     model_path = os.path.join(module_dir, 'static/ts_model')
-    imported=tf.saved_model.load(model_path)
+    imported = tf.saved_model.load(model_path)
 
     # load data according to team selection
     length = len(games)
     inputdata = np.ones((length,11))
     for i, teams in enumerate(games):
-        home = teams[0][0]
-        away = teams[1][0]
+        home = teams[0]
+        away = teams[1]
         home_input = np.asarray(list(home_stat.loc[home]))
         away_input = np.asarray(list(away_stat.loc[away]))
         input = home_input - away_input
@@ -92,10 +102,11 @@ def view_home(request):
 
     # calculate
     outputs = imported(inputdata)
+    print(outputs)
 
     # format data passed to the frontend
-    output=outputs.numpy()
-    final_output=[]
+    output = outputs.numpy()
+    final_output = []
     for i in range(output.shape[0]):
         if(output[i,0]>output[i,1]):
             final_output.append(0)
@@ -112,7 +123,7 @@ def view_home(request):
     keys = [list(selections[i][0].keys()) for i in range(3)]   
     
     return render(request, 'index.html', {'numberOfGames': games.__len__(),
-                                          'games': games,
+                                          'games': frontend_games,
                                           'results': list(final_output),
                                           'prob': output.tolist(),
                                           'visual': selections,
