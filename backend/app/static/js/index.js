@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { VictoryBar, VictoryChart, VictoryAxis } from 'victory';
+import { VictoryChart, VictoryAxis, VictoryTheme, VictoryScatter, VictoryTooltip } from 'victory';
 
 class Main extends React.Component {
   render() {
@@ -11,44 +11,84 @@ class Main extends React.Component {
     );
   }
 }
-const data = [
-  {quarter: 1, earnings: 13000},
-  {quarter: 2, earnings: 16500},
-  {quarter: 3, earnings: 14250},
-  {quarter: 4, earnings: 19000}
-];
 
+const data = window.data;
+const keys = window.keys;
+console.log(data);
+console.log(keys);
 
-class App extends React.Component {
+class CustomFlyout extends React.Component {
   render() {
+    const {x, y, orientation} = this.props;
+    const newY = orientation === "bottom" ? y - 32 : y + 32;
     return (
-      <VictoryChart
-        // domainPadding will add space to each side of VictoryBar to
-        // prevent it from overlapping the axis
-        domainPadding={20}
-      >
-        <VictoryAxis
-          // tickValues specifies both the number of ticks and where
-          // they are placed on the axis
-          tickValues={[1, 2, 3, 4]}
-          tickFormat={["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"]}
-        />
-        <VictoryAxis
-          dependentAxis
-          // tickFormat specifies how ticks should be displayed
-          tickFormat={(x) => (`$${x / 1000}k`)}
-        />
-        <VictoryBar
-          data={data}
-          x="quarter"
-          y="earnings"
-        />
-      </VictoryChart>
-    )
+      <g>
+        <circle cx={x} cy={newY} r="15" stroke="grey" fill="none"/>
+        <circle cx={x} cy={newY} r="20" stroke="black" fill="none"/>
+      </g>
+    );
   }
 }
 
-// ReactDOM.render(<App/>, window.react_mount);
+class App extends React.Component {
+  render() {
+    const items = []
+    for (var i = 0; i < 3; i = i + 1) {
+    console.log(i)
+      items.push(
+        <div>
+        <VictoryChart
+          theme={VictoryTheme.material}
+        >
+          <VictoryAxis
+            label={keys[i][1]}
+            style={{ axisLabel: {padding: 30} }}
+          />
+          <VictoryAxis
+            dependentAxis
+            label={keys[i][2]}
+            style={{ axisLabel: {padding: 30} }}
+          />
+          <VictoryScatter padding={{top:40, right:40, left:40, bottom: 40}}
+            events={[{
+              target: "data",
+              eventHandlers: {
+                onClick: () => {
+                  return [
+                    {
+                      target: "data",
+                      mutation: (props) => {
+                        const fill = props.style && props.style.fill;
+                        return fill === "red" ? null : { style: { fill: "red" } };
+                      }
+                    }, {
+                      target: "labels",
+                      mutation: (props) => {
+                        return props.active === true ?
+                          { active: false } : { active: true, style: { fill: "red" } };
+                      }
+                    }
+                  ];
+                }
+              }
+            }]}
+            size={5}
+            data={data[i]}
+            x={keys[i][1]}
+            y={keys[i][2]}
+            labelComponent={<VictoryTooltip
+              flyoutComponent={<CustomFlyout/>}
+            />}
+          />
+        </VictoryChart>
+        </div>
+      )
+    }
+    return items
+  }
+}
+
+ReactDOM.render(<Main/>, window.react_mount);
 
 const app = document.getElementById('chartdisp');
 ReactDOM.render(<App />, app);

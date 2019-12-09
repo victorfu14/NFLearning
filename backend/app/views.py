@@ -81,10 +81,10 @@ def view_home(request):
     length = len(games)
     inputdata = np.ones((length,11))
     for i, teams in enumerate(games):
-        away = teams[0][0]
-        home = teams[1][0]
-        away_input = np.asarray(list(away_stat.loc[away]))
+        home = teams[0][0]
+        away = teams[1][0]
         home_input = np.asarray(list(home_stat.loc[home]))
+        away_input = np.asarray(list(away_stat.loc[away]))
         input = home_input - away_input
         inputdata[i] = input
         
@@ -101,11 +101,22 @@ def view_home(request):
             final_output.append(0)
         if(output[i,0]<output[i,1]):
             final_output.append(1)
+
+    # getting data for victory.js visualization
+    stats = home_stat.join(away_stat)
+    index = list(stats.index)
+    columns = list(stats.columns)
+
+    choices = [random.sample(columns, 2) for i in range(3)]
+    selections = [stats[choices[i]].reset_index().rename(columns={"Home":"label"}).to_dict('records') for i in range (3)]
+    keys = [list(selections[i][0].keys()) for i in range(3)]   
     
     return render(request, 'index.html', {'numberOfGames': games.__len__(),
                                           'games': games,
                                           'results': list(final_output),
-                                          'prob': output.tolist()})
+                                          'prob': output.tolist(),
+                                          'visual': selections,
+                                          'visual_keys': keys})
 
 def feedback(request):
     return render(request, 'rating.html')

@@ -15,17 +15,13 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
-    <script>
-        var arr = {{ games|safe }};
-        var res = {{ results|safe }};
-        console.log(arr);
-        console.log(res);
-    </script>
     <div class="cover-container p-3 mx-auto flex-row">
         <div class="row" id="cover">
             <div id="front" class="col" role="main">
                 <h1 class="cover-heading">NFLearing - Powered by ML</h1>
-                <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, facilis.</p>
+                <p class="lead">
+                    We utilized tensorflow and machine learning techniques to build a webapp with Django framework with react.js integrated to show predictions of NFL games.
+                </p>
                 <p class="lead">
                     <a href="#result" class="btn btn-lg btn-secondary">See Our Work</a>
                 </p>
@@ -34,6 +30,11 @@
         <div class="row" id="result">
             <div class="col-md-6">
                 <div id="chartdisp"></div>
+                <script>
+                    window.data = {{ visual|safe }};
+                    window.keys = {{ visual_keys|safe }};
+                    window.react_mount = document.getElementById('chartdisp');
+                </script>
                 {% render_bundle 'main' %}
             </div>
             <div class="col-md-6" id="Disp">
@@ -43,7 +44,7 @@
                     integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
                     crossorigin="anonymous"></script>
                 <script>
-                    function addResult(winner, loser, i, cond) {
+                    function addResult(winner, loser, i, cond, detail) {
                         resultTemp =
                             '<div class="card">' +
                             '   <div class="card-header" id="heading'+i+'">' +
@@ -56,7 +57,7 @@
                             '   </div>' +
                             '   <div id="collapse'+i+'" class="collapse" aria-labelledby="heading'+i+'" data-parent="#accordionDisp">' +
                             '       <div class="card-body">' +
-                            '           More details...' +
+                            '           ' + detail +
                             '       </div>' +
                             '   </div>' +
                             '</div><br>';
@@ -81,21 +82,40 @@
                         $(resultTemp).appendTo( "#Disp" );
                     }
                     
-                    var arr = {{ games|safe }};
-                    var result = {{ results|safe }}
+                    function detail_prompt(probility) {
+                        if (probility[0] > 0.75) {
+                            return "The away team is simply too powerful that even though they are on road they have " + (probility[0] * 100).toFixed(0) + " percent chance of winning.";
+                        } 
+                        else if (probility[0] > 0.5) {
+                            return "The away team is stronger, but on road conditions will only give them " + (probility[0] * 100).toFixed(0) + " percent chance of winning.";
+                        } 
+                        else if (probility[0] > 0.41) {
+                            return "The away team is strong, but on road conditions will made them slightly unfavorite with " + (probility[1] * 100).toFixed(0) + " percent chance of winning for the home team.";
+                        }
+                        else if (probility[0] > 0.2) {
+                            return "The home team is strong, and fighting in front of their fans will add to their " + (probility[1] * 100).toFixed(0) + " percent chance of winning.";
+                        }
+                        else {
+                            return "The home team are powerful enough to smash a win and home condition makes it even easier. The home team will have "+ (probility[1] * 100).toFixed(0) + " percent chance of winning.";
+                        }
+                    }
+                    
+                    const arr = {{ games|safe }};
+                    const result = {{ results|safe }};
+                    const prob = {{ prob|safe }};
                     var winner;
                     var loser;
                     for (var i = 0; i < {{numberOfGames}}; i = i + 1) {
                         if (result[i] === 1) {
                             winner = arr[i][0][2];
                             loser = arr[i][1][2];
-                            addResult(winner, loser, i, " at home");
+                            addResult(winner, loser, i, " at home", detail_prompt(prob[i]));
                             addstyle(winner, loser, i);
                         }
                         if (result[i] === 0) {
                             winner = arr[i][1][2];
                             loser = arr[i][0][2];
-                            addResult(winner, loser, i, " on road");
+                            addResult(winner, loser, i, " on road", detail_prompt(prob[i]));
                             addstyle(winner, loser, i);
                         }
                     }
