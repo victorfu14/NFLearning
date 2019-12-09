@@ -45,6 +45,13 @@ html {
     text-align: left;
 }
 
+.btn.btn-lg {
+    z-index: 1;
+    -webkit-box-shadow: 0px 2px 15px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 15px -10px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 15px -10px rgba(0,0,0,0.75);
+}
+
 .card {
     text-align: center;
     margin-right: auto;

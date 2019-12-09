@@ -14,8 +14,6 @@ class Main extends React.Component {
 
 const data = window.data;
 const keys = window.keys;
-console.log(data);
-console.log(keys);
 
 class CustomFlyout extends React.Component {
   render() {
@@ -34,10 +32,10 @@ class App extends React.Component {
   render() {
     const items = []
     for (var i = 0; i < 3; i = i + 1) {
-    console.log(i)
       items.push(
         <div>
         <VictoryChart
+          width={400}
           theme={VictoryTheme.material}
         >
           <VictoryAxis

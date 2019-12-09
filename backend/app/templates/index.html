@@ -27,7 +27,18 @@
                 </p>
             </div>
         </div>
-        <div class="row" id="result">
+        <div id="result">
+            <br>
+            <h4>
+                By utilizing victory.js, we are able to deliver straighrforward data visualization of team stats.<br>
+                We also have a robust generic model that can predict any arbitrary games, taking home and road conditions into account.<br>
+                The games shown on the front page are a demo of predicting games randomly chosed.<br>
+                <br>If you want to get suggestions of real-life NFL game predictions, 
+                <br><br><h3>Click &nbsp;&nbsp;&nbsp;&nbsp;
+                <a  href="{% url 'current_games' %}" class="btn btn-lg btn-light" id="nflgame"><img src="{% static 'image/NFL_logo.svg' %}" width="20" />&nbsp;Current Games</a></h3>
+            </h4> 
+        </div>
+        <div class="row" id="results">
             <div class="col-md-6">
                 <div id="chartdisp"></div>
                 <script>
@@ -69,7 +80,7 @@
                         lose = "\"../static/image/"+loser+".svg\"";
                         resultTemp =
                             '<style type="text/css">' +
-                            '   #heading'+i+'::after {' +
+                            '   #heading'+i+'.card-header::after {' +
                             '       display: block; opacity: 0.1;' +
                             '       background-image: url('+win+'), url('+lose+');' +
                             '       background-size: 30%;' +
