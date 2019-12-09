@@ -17,7 +17,7 @@
 <body>
     <script>
         var arr = {{ games|safe }};
-        var res = {{ prob|safe }};
+        var res = {{ results|safe }};
         console.log(arr);
         console.log(res);
     </script>
@@ -43,15 +43,14 @@
                     integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
                     crossorigin="anonymous"></script>
                 <script>
-                    var arr = {{ games|safe }};
-                    function addResult(winner, loser, i) {
+                    function addResult(winner, loser, i, cond) {
                         resultTemp =
                             '<div class="card">' +
                             '   <div class="card-header" id="heading'+i+'">' +
                             '       <h2 class="mb-0">' +
                             '           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse'+i+'" ' +
                             '               aria-expanded="true" aria-controls="collapse'+i+'">' +
-                            '               <h2 class = "text">' + winner + ' beats ' + loser + '</h2>\n' +
+                            '               <h2 class = "text">' + winner + ' is predicted to beat ' + loser + cond +'</h2>\n' +
                             '           </button>' +
                             '       </h2>' +
                             '   </div>' +
@@ -67,7 +66,6 @@
                     function addstyle(winner, loser, i) {
                         win = "\"../static/image/"+winner+".svg\"";
                         lose = "\"../static/image/"+loser+".svg\"";
-                        console.log(win, lose);
                         resultTemp =
                             '<style type="text/css">' +
                             '   #heading'+i+'::after {' +
@@ -82,14 +80,24 @@
                             '</style>'
                         $(resultTemp).appendTo( "#Disp" );
                     }
-
+                    
+                    var arr = {{ games|safe }};
+                    var result = {{ results|safe }}
                     var winner;
                     var loser;
                     for (var i = 0; i < {{numberOfGames}}; i = i + 1) {
-                        winner = arr[i][0][2];
-                        loser = arr[i][1][2];
-                        addResult(winner, loser, i);
-                        addstyle(winner, loser, i);
+                        if (result[i] === 1) {
+                            winner = arr[i][0][2];
+                            loser = arr[i][1][2];
+                            addResult(winner, loser, i, " at home");
+                            addstyle(winner, loser, i);
+                        }
+                        if (result[i] === 0) {
+                            winner = arr[i][1][2];
+                            loser = arr[i][0][2];
+                            addResult(winner, loser, i, " on road");
+                            addstyle(winner, loser, i);
+                        }
                     }
                 </script>
             </div>
