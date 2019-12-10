@@ -37,6 +37,7 @@ class App extends React.Component {
         <VictoryChart
           width={400}
           theme={VictoryTheme.material}
+          animate={{ duration: 2000 }}
         >
           <VictoryAxis
             label={keys[i][1]}
@@ -48,35 +49,16 @@ class App extends React.Component {
             style={{ axisLabel: {padding: 30} }}
           />
           <VictoryScatter padding={{top:40, right:40, left:40, bottom: 40}}
-            events={[{
-              target: "data",
-              eventHandlers: {
-                onClick: () => {
-                  return [
-                    {
-                      target: "data",
-                      mutation: (props) => {
-                        const fill = props.style && props.style.fill;
-                        return fill === "red" ? null : { style: { fill: "red" } };
-                      }
-                    }, {
-                      target: "labels",
-                      mutation: (props) => {
-                        return props.active === true ?
-                          { active: false } : { active: true, style: { fill: "red" } };
-                      }
-                    }
-                  ];
-                }
-              }
-            }]}
             size={5}
             data={data[i]}
             x={keys[i][1]}
             y={keys[i][2]}
-            labelComponent={<VictoryTooltip
-              flyoutComponent={<CustomFlyout/>}
-            />}
+            labels={({ datum }) => `y: ${datum.y}`}
+            labelComponent={
+              <VictoryTooltip
+                style={{ fontSize: 10 }}
+              />
+            }
           />
         </VictoryChart>
         </div>
@@ -90,4 +72,28 @@ ReactDOM.render(<Main/>, window.react_mount);
 
 const app = document.getElementById('chartdisp');
 ReactDOM.render(<App />, app);
+
+
+// events={[{
+//   target: "data",
+//   eventHandlers: {
+//     onClick: () => {
+//       return [
+//         {
+//           target: "data",
+//           mutation: (props) => {
+//             const fill = props.style && props.style.fill;
+//             return fill === "red" ? null : { style: { fill: "red" } };
+//           }
+//         }, {
+//           target: "labels",
+//           mutation: (props) => {
+//             return props.active === true ?
+//               { active: false } : { active: true, style: { fill: "red" } };
+//           }
+//         }
+//       ];
+//     }
+//   }
+// }]}
 
