@@ -1,3 +1,4 @@
 django-webpack-loader
 django-heroku
+requests
 gunicorn==19.7.1
