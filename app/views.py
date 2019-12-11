@@ -5,8 +5,6 @@ from django.shortcuts import render
 import random
 import requests
 
-import bs4 as bs
-
 import tensorflow as tf
 import numpy as np
 import pandas as pd
