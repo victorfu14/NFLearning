@@ -205,8 +205,6 @@ def current_games(request):
     current_year_and_week = list(nflgame.live.current_year_and_week())
 
     # get current games
-    if datetime.datetime.today().weekday() <= 2:
-        current_year_and_week[1] += 1
     games = [[x.home, x.away] for x in nflgame.games(year=current_year_and_week[0], week=current_year_and_week[1])]
     frontend_games = [[teams.get(x[0]), teams.get(x[1])] for x in games]
 
