@@ -1,6 +1,6 @@
 django-webpack-loader
 requests
-tensorflow==2.0.0
+tensorflow==2.0.0a0
 numpy
 pandas
 nflgame-redux==2.0.1b1
