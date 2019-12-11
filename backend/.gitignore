@@ -1,5 +1,0 @@
-*.pyc
-node_modules/
-__pycache__/
-package-lock.json
-.DS_Store
