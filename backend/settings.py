@@ -25,7 +25,7 @@ SECRET_KEY = 'gm6y431+7=u!gvr#=xol(_g^qi)6tz-(f4ls-1$7&!%2h@*e1@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['nflearning.herokuapp.com']
 
 
 # Application definition
