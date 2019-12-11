@@ -57,6 +57,7 @@ html {
     margin-right: auto;
     margin-left: auto;
     max-width: 80%;
+    padding-bottom: 1px;
 }
 
 .card-header {
@@ -80,6 +81,10 @@ html {
     right: 0;
     position: absolute;
     z-index: -1; 
+}
+
+.collapse.show {
+    margin-bottom: -1px;
 }
 
 .text {

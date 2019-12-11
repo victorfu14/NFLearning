@@ -31,7 +31,7 @@ class CustomFlyout extends React.Component {
 class App extends React.Component {
   render() {
     const items = []
-    for (var i = 0; i < 3; i = i + 1) {
+    for (var i = 0; i < 1; i = i + 1) {
       items.push(
         <div>
         <VictoryChart

@@ -38,17 +38,7 @@
                 <a  href="{% url 'current_games' %}" class="btn btn-lg btn-light" id="nflgame"><img src="{% static 'image/NFL_logo.svg' %}" width="20" />&nbsp;Current Games</a></h3>
             </h4> 
         </div>
-                        <div>
-            <h4>Feel free to try out predictor yourself! Put any two teams against each other:</h4>
-                            <br>
-                    <form action="/" method="post" style="text-align: center">
-                        {% csrf_token %}
-                        {{ form }}
-                        <input type="submit" value="Submit">
-                    </form>
-                </div>
-        <br>
-
+        
         <div class="row" id="results">
             <div class="col-md-6">
                 <div id="chartdisp"></div>
@@ -60,6 +50,15 @@
                 {% render_bundle 'main' %}
             </div>
             <div class="col-md-6" id="Disp">
+                <div>
+                    <h4>Feel free to try out predictor yourself! Put any two teams against each other:</h4><br>
+                        <form action="/" method="post" style="text-align: center">
+                            {% csrf_token %}
+                            {{ form }}
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+                <br>
                 <div class="accordion" id="accordionDisp">
                 <script
                     src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -82,8 +81,8 @@
                             '           ' + detail +
                             '       </div>' +
                             '   </div>' +
-                            '</div><br>';
-                        $(resultTemp).appendTo( "#results" );
+                            '</div>';
+                        $(resultTemp).appendTo( "#accordionDisp" );
                     }
 
                     function addstyle(winner, loser, i) {
