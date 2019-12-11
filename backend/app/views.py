@@ -67,6 +67,7 @@ def view_home(request):
     with open(away_stat_path) as data:
         away_stat = pd.read_csv(data, index_col=0)
 
+
     games = [random.sample(list(teams.values()), 2) for i in range(10)]
 
     # load tf models
@@ -120,6 +121,7 @@ def feedback(request):
 def current_games(request):
 
     teams = request.session['teams']
+
     # get the home dir
     module_dir = os.path.dirname(__file__)
 
@@ -131,18 +133,15 @@ def current_games(request):
     with open(away_stat_path) as data:
         away_stat = pd.read_csv(data, index_col=0)
 
-    current_year_and_week = nflgame.live.current_year_and_week()
-
-    games = [[x.home, x.away] for x in nflgame.games(year=current_year_and_week[0], week=current_year_and_week[1])]
-    #games = [random.sample(teams, 2) for i in range(10)]
-    #print(games)
-    #games = games[:10]
-
-    frontend_games = [[teams.get(x[0]), teams.get(x[1])] for x in games]
-
     # load tf models
     model_path = os.path.join(module_dir, 'static/ts_model')
     imported = tf.saved_model.load(model_path)
+
+    current_year_and_week = nflgame.live.current_year_and_week()
+
+    # get current games
+    games = [[x.home, x.away] for x in nflgame.games(year=current_year_and_week[0], week=current_year_and_week[1])]
+    frontend_games = [[teams.get(x[0]), teams.get(x[1])] for x in games]
 
     # load data according to team selection
     length = len(games)
@@ -167,22 +166,11 @@ def current_games(request):
         if(output[i,0]>output[i,1]):
             final_output.append(0)
         if(output[i,0]<output[i,1]):
-            final_output.append(1)
-
-    # getting data for victory.js visualization
-    stats = home_stat.join(away_stat)
-    index = list(stats.index)
-    columns = list(stats.columns)
-
-    choices = [random.sample(columns, 2) for i in range(3)]
-    selections = [stats[choices[i]].reset_index().rename(columns={"Home":"label"}).to_dict('records') for i in range (3)]
-    keys = [list(selections[i][0].keys()) for i in range(3)]   
+            final_output.append(1)  
     
     return render(request, 'current_games.html', {'numberOfGames': games.__len__(),
                                                 'games': frontend_games,
                                                 'results': list(final_output),
                                                 'prob': output.tolist(),
-                                                'visual': selections,
-                                                'visual_keys': keys,
                                                 'year': current_year_and_week[0],
                                                 'week': current_year_and_week[1]})

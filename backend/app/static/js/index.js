@@ -53,7 +53,6 @@ class App extends React.Component {
             data={data[i]}
             x={keys[i][1]}
             y={keys[i][2]}
-            labels={({ datum }) => `y: ${datum.y}`}
             labelComponent={
               <VictoryTooltip
                 style={{ fontSize: 10 }}
@@ -72,28 +71,3 @@ ReactDOM.render(<Main/>, window.react_mount);
 
 const app = document.getElementById('chartdisp');
 ReactDOM.render(<App />, app);
-
-
-// events={[{
-//   target: "data",
-//   eventHandlers: {
-//     onClick: () => {
-//       return [
-//         {
-//           target: "data",
-//           mutation: (props) => {
-//             const fill = props.style && props.style.fill;
-//             return fill === "red" ? null : { style: { fill: "red" } };
-//           }
-//         }, {
-//           target: "labels",
-//           mutation: (props) => {
-//             return props.active === true ?
-//               { active: false } : { active: true, style: { fill: "red" } };
-//           }
-//         }
-//       ];
-//     }
-//   }
-// }]}
-
