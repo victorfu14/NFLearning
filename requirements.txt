@@ -1,0 +1,8 @@
+django-webpack-loader
+requests
+tensorflow==2.0.0b1
+numpy
+pandas
+nflgame-redux==2.0.1b1
+django-heroku
+gunicorn==19.7.1

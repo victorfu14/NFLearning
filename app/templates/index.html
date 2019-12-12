@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+{% load static %}
+{% load render_bundle from webpack_loader %}
+{% include 'navbar.html' %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700&display=swap" rel="stylesheet">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <div class="cover-container p-3 mx-auto flex-row">
+        <div class="row" id="cover">
+            <div id="front" class="col" role="main">
+                <h1 class="cover-heading">NFLearning - Powered by ML</h1>
+                <p class="lead">
+                    We utilized tensorflow and machine learning techniques to build a webapp with Django framework with react.js integrated to show predictions of NFL games.
+                </p>
+                <p class="lead">
+                    <a href="#result" class="btn btn-lg btn-secondary">See Our Work</a>
+                </p>
+            </div>
+        </div>
+        <div id="result">
+            <br>
+            <h4>
+                By utilizing victory.js, we are able to deliver straighrforward data visualization of team stats.<br>
+                We also have a robust generic model that can predict any arbitrary games, taking home and road conditions into account.<br>
+                The games shown on the front page are a demo of predicting games randomly chosed.<br>
+                <br>If you want to get suggestions of real-life NFL game predictions, 
+                <br><br><h3>Click &nbsp;&nbsp;&nbsp;&nbsp;
+                <a  href="{% url 'current_games' %}" class="btn btn-lg btn-light" id="nflgame"><img src="{% static 'image/NFL_logo.svg' %}" width="20" />&nbsp;Current Games</a></h3>
+            </h4> 
+        </div>
+        
+        <div class="row" id="results">
+            <div class="col-md-6">
+                <div id="chartdisp"></div>
+                <script>
+                    window.data = {{ visual|safe }};
+                    window.keys = {{ visual_keys|safe }};
+                    window.react_mount = document.getElementById('chartdisp');
+                </script>
+                {% render_bundle 'main' %}
+            </div>
+            <div class="col-md-6" id="Disp">
+                <div>
+                    <h4>Feel free to try out predictor yourself! Put any two teams against each other:</h4><br>
+                        <form action="/" method="post" style="text-align: center">
+                            {% csrf_token %}
+                            {{ form }}
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+                <br>
+                <div class="accordion" id="accordionDisp">
+                <script
+                    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+                    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+                    crossorigin="anonymous"></script>
+                <script>
+                    function addResult(winner, loser, i, cond, detail) {
+                        resultTemp =
+                            '<div class="card">' +
+                            '   <div class="card-header" id="heading'+i+'">' +
+                            '       <h2 class="mb-0">' +
+                            '           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse'+i+'" ' +
+                            '               aria-expanded="true" aria-controls="collapse'+i+'">' +
+                            '               <h2 class = "text">' + winner + ' are predicted to beat ' + loser + cond +'</h2>\n' +
+                            '           </button>' +
+                            '       </h2>' +
+                            '   </div>' +
+                            '   <div id="collapse'+i+'" class="collapse" aria-labelledby="heading'+i+'" data-parent="#accordionDisp">' +
+                            '       <div class="card-body">' +
+                            '           ' + detail +
+                            '       </div>' +
+                            '   </div>' +
+                            '</div>';
+                        $(resultTemp).appendTo( "#accordionDisp" );
+                    }
+
+                    function addstyle(winner, loser, i) {
+                        win = "\"../static/image/"+winner+".svg\"";
+                        lose = "\"../static/image/"+loser+".svg\"";
+                        resultTemp =
+                            '<style type="text/css">' +
+                            '   #heading'+i+'.card-header::after {' +
+                            '       display: block; opacity: 0.1;' +
+                            '       background-image: url('+win+'), url('+lose+');' +
+                            '       background-size: 30%;' +
+                            '       background-position-y: center;' +
+                            '       background-position-x: left, right;' +
+                            '       top: 0; left: 0; bottom:0; right:0;' +
+                            '       position: absolute; z-index: -1;' +
+                            '   }' +
+                            '</style>'
+                        $(resultTemp).appendTo( "#Disp" );
+                    }
+                    
+                    function detail_prompt(probility) {
+                        if (probility[0] > 0.75) {
+                            return "The away team is simply too powerful that even though they are on road they have " + (probility[0] * 100).toFixed(0) + " percent chance of winning.";
+                        } 
+                        else if (probility[0] > 0.5) {
+                            return "The away team is stronger, but on road conditions will only give them " + (probility[0] * 100).toFixed(0) + " percent chance of winning.";
+                        } 
+                        else if (probility[0] > 0.41) {
+                            return "The away team is strong, but on road conditions will made them slightly unfavorite with " + (probility[1] * 100).toFixed(0) + " percent chance of winning for the home team.";
+                        }
+                        else if (probility[0] > 0.2) {
+                            return "The home team is strong, and fighting in front of their fans will add to their " + (probility[1] * 100).toFixed(0) + " percent chance of winning.";
+                        }
+                        else {
+                            return "The home team are powerful enough to smash a win and home condition makes it even easier. The home team will have "+ (probility[1] * 100).toFixed(0) + " percent chance of winning.";
+                        }
+                    }
+                    
+                    const arr = {{ games|safe }};
+                    const result = {{ results|safe }};
+                    const prob = {{ prob|safe }};
+                    var winner;
+                    var loser;
+                    for (var i = 0; i < {{numberOfGames}}; i = i + 1) {
+                        if (result[i] === 1) {
+                            winner = arr[i][0][2];
+                            loser = arr[i][1][2];
+                            addResult(winner, loser, i, " at home", detail_prompt(prob[i]));
+                            addstyle(winner, loser, i);
+                        }
+                        if (result[i] === 0) {
+                            winner = arr[i][1][2];
+                            loser = arr[i][0][2];
+                            addResult(winner, loser, i, " on road", detail_prompt(prob[i]));
+                            addstyle(winner, loser, i);
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Rick's Group 2019</p>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

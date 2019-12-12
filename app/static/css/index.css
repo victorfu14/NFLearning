@@ -1,0 +1,110 @@
+body, html {
+    font-family: 'Raleway', sans-serif;
+    padding: 0;
+    margin: 0 auto;
+    overflow-x: auto;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+.cover-container {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 90%;
+    overflow-x: auto;
+}
+
+#cover {
+    height: 100vh;
+    width: 100vh;
+}
+
+#cover::after {
+    content: ' ';
+    display: block;
+    opacity: 0.2;
+    background-image: url("../image/bg1.jpg");
+    background-repeat: no-repeat;
+    background-position-x: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#front {
+    margin-top: 20%;
+    text-align: left;
+}
+
+.btn.btn-lg {
+    z-index: 1;
+    -webkit-box-shadow: 0px 2px 15px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 15px -10px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 15px -10px rgba(0,0,0,0.75);
+}
+
+.card {
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 80%;
+    padding-bottom: 1px;
+}
+
+.card-header {
+    z-index: 1;
+    -webkit-box-shadow: 0px 2px 15px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 15px -10px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 15px -10px rgba(0,0,0,0.75);
+}
+
+.card-header::after {
+    content: ' ';
+    display: block;
+    opacity: 0.1;
+    background-image: url("../image/NFL_logo.svg");
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1; 
+}
+
+.collapse.show {
+    margin-bottom: -1px;
+}
+
+.text {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 1.5em;
+}
+
+footer {
+    text-align: center;
+}
+
+@media only screen and (max-width: 960px) {
+    .container {
+        width: 95%;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    header h1 {
+        font-size: 24px;
+    }
+}

@@ -1,0 +1,26 @@
+.card-header {
+    z-index: 1;
+    -webkit-box-shadow: 0px 2px 15px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 15px -10px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 15px -10px rgba(0,0,0,0.75);
+}
+
+.card-header::after {
+    content: ' ';
+    display: block;
+    opacity: 0.1;
+    background-image: url("../image/NFL_logo.svg");
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1; 
+}
+
+.card-body {
+    font-weight: 500;
+}
